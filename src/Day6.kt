@@ -16,21 +16,15 @@ object Day6 {
         var blocks = list.map { it.toInt() }
         var n = 0
         var stateToRepeat: String? = null
-        while (true) {
+        do {
             blocks = redistribute(blocks)
             n++
             val currState = blocks.toString()
-            if (stateToRepeat == null) {
-                if (!seenBefore.add(currState)) {
-                    stateToRepeat = currState
-                    n = 0
-                }
-            } else {
-                if (stateToRepeat == currState) {
-                    break
-                }
+            if (stateToRepeat == null && !seenBefore.add(currState)) {
+                stateToRepeat = currState
+                n = 0
             }
-        }
+        } while (stateToRepeat == null || stateToRepeat != currState || n == 0)
         return n
     }
 
@@ -39,11 +33,14 @@ object Day6 {
         val count = blocks.size
         return blocks.mapIndexed { i, e ->
             val fullRounds = amount / count
-            val lastRound = if (( i- pos + count) % count in 1..(amount % count)) 1 else 0
-            val base = if (pos != i) e else 0
-            base + fullRounds + lastRound
+            val lastRound = (( i- pos + count) % count in 1..(amount % count))
+            val base = (pos != i) * e
+            lastRound + base + fullRounds
         }
     }
 
+    private operator fun Boolean.times(b : Int): Int = b * if (this) 1 else 0
+    private operator fun Boolean.plus(b : Int): Int = b + if (this) 1 else 0
 
 }
+
