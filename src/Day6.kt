@@ -17,14 +17,14 @@ object Day6 {
         var n = 0
         var stateToRepeat: String? = null
         do {
-            blocks = redistribute(blocks)
-            n++
             val currState = blocks.toString()
             if (stateToRepeat == null && !seenBefore.add(currState)) {
                 stateToRepeat = currState
                 n = 0
             }
-        } while (stateToRepeat == null || stateToRepeat != currState || n == 0)
+            blocks = redistribute(blocks)
+            n++
+        } while (stateToRepeat == null || stateToRepeat != blocks.toString())
         return n
     }
 

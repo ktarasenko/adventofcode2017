@@ -6,4 +6,8 @@ object DayN{
         return 42
     }
 
+    fun solve2(list: Iterable<String>): Int {
+        return 42
+    }
+
 }
