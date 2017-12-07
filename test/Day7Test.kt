@@ -23,7 +23,7 @@ class Day7Test {
 
     @Test
     fun provided2(){
-        Assert.assertEquals(8, Day7.solve2(("pbga (66)\n" +
+        Assert.assertEquals(60, Day7.solve2(("pbga (66)\n" +
                 "xhth (57)\n" +
                 "ebii (61)\n" +
                 "havc (66)\n" +
@@ -38,10 +38,6 @@ class Day7Test {
                 "cntj (57)").split("\n")))
     }
 
-    @Test
-    fun test(){
-        Assert.assertEquals(42, Day7.solve(("a\nb").split("\n")))
-    }
 
     @Test
     fun task(){
@@ -50,6 +46,6 @@ class Day7Test {
 
     @Test
     fun task2(){
-        Assert.assertEquals("cqmvs", Day7.solve2((File("input/day7.txt").readLines())))
+        Assert.assertEquals(2310, Day7.solve2((File("input/day7.txt").readLines())))
     }
 }
