@@ -7,7 +7,7 @@ object Day10 {
         return list[0] * list[1]
     }
 
-    private fun knotTie(size: Int, lengths: List<Int>): List<Int> {
+    internal fun knotTie(size: Int, lengths: List<Int>): List<Int> {
         val list = CircularList(0 until size)
         var p = 0
         lengths.forEachIndexed { skipSize, l ->
@@ -18,13 +18,10 @@ object Day10 {
     }
 
     fun solve2(lengths: String): String {
-        val list = knotTie(256, (lengths.toCharArray().map { it.toInt() }
-                + listOf(17, 31, 73, 47, 23)).repeat(64))
-        return (0..15)
-                .map { list.subList(it * 16, (it+1)* 16)}
-                .map { it.xor()}
-                .toHex()
+        return knotHash(lengths)
     }
+
+
 
 
     class CircularList(values: Iterable<Int>) : ArrayList<Int>(values.toList()) {
@@ -61,18 +58,28 @@ object Day10 {
     }
 
 
-    private fun <E> List<E>.repeat(times: Int): List<E> {
-        val m = ArrayList<E>()
-        m.ensureCapacity(this.size * times)
-        repeat(times, {m.addAll(this)})
-        return m
-    }
+
 
 }
 
+fun knotHash(lengths: String): String {
+    val list = Day10.knotTie(256, (lengths.toCharArray().map { it.toInt() }
+            + listOf(17, 31, 73, 47, 23)).repeat(64))
+    return (0..15)
+            .map { list.subList(it * 16, (it + 1) * 16) }
+            .map { it.xor() }
+            .toHex()
+}
 
-fun List<Int>.toHex(): String =
+internal fun <E> List<E>.repeat(times: Int): List<E> {
+    val m = ArrayList<E>()
+    m.ensureCapacity(this.size * times)
+    repeat(times, {m.addAll(this)})
+    return m
+}
+
+internal fun List<Int>.toHex(): String =
         joinToString(separator = ""){it.toString(16).padStart(2, '0')}
 
-fun List<Int>.xor(): Int = fold(0, {acc, i ->  acc.xor(i)})
+internal fun List<Int>.xor(): Int = fold(0, {acc, i ->  acc.xor(i)})
 
