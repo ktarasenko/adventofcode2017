@@ -14,5 +14,6 @@ class Day23Test {
     @Test
     fun task2(){
         Assert.assertEquals(915, Day23.solve2())
+        Assert.assertEquals(915, Day23.solve(File("input/day23_mod.txt").readLines(), 1))
     }
 }

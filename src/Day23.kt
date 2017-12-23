@@ -19,11 +19,14 @@ object Day23 {
                 "mul" -> {
                     mc++; reg.put(cmd[1], reg.getOrDefault(cmd[1], 0) * reg.getOrElse(cmd[2], { cmd[2].toLong() })); i++
                 }
+                "mod" -> {
+                    reg.put(cmd[1], reg.getOrDefault(cmd[1], 0) % reg.getOrElse(cmd[2], { cmd[2].toLong() })); i++
+                }
                 "jnz" -> if (reg.getOrElse(cmd[1], { cmd[1].toLong() }) != 0L) i += cmd[2].toInt() else i++
             }
 
-
         }
+        println(reg)
         return mc
     }
 
